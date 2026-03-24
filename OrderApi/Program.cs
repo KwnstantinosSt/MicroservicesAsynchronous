@@ -34,6 +34,17 @@ builder.Services.AddSingleton<IConsumer<Null, string>>(x =>
 // Services
 builder.Services.AddScoped<IOrderService, OrderService>();
 
+// Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,6 +56,8 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/openapi/v1.json", "v1");
     });
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
