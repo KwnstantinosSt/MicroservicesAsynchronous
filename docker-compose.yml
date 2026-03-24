@@ -15,7 +15,6 @@ services:
       - ${USERPROFILE}\.aspnet\https:/https:ro
     depends_on:
       - product-api
-
   product-api:
     build:
       context: .
