@@ -9,8 +9,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
-    volumes:
-      - ./certs:/https:ro
     depends_on:
       - product-api
   product-api:
@@ -23,8 +21,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
-    volumes:
-      - ./certs:/https:ro
 
 networks:
   default:
