@@ -57,6 +57,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseForwardedHeaders();
+
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
