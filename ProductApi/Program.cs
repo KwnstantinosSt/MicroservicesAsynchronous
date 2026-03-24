@@ -1,4 +1,5 @@
 using Confluent.Kafka;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi;
 using ProductApi.ProductServices;
 
@@ -40,7 +41,19 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Forward headers
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    
+    // CRITICAL: Clear these so it trusts the Coolify/Docker proxy
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 if (app.Environment.IsDevelopment())
 {
@@ -50,8 +63,6 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/openapi/v1.json", "v1");
     });
 }
-
-app.UseForwardedHeaders();
 
 app.UseCors("AllowAll");
 
