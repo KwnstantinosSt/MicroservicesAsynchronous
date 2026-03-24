@@ -12,7 +12,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=YourSecurePassword
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     volumes:
-      - ${USERPROFILE}\.aspnet\https:/https:ro
+      - ./certs:/https:ro
     depends_on:
       - product-api
   product-api:
@@ -28,7 +28,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=YourSecurePassword
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     volumes:
-      - ${USERPROFILE}\.aspnet\https:/https:ro
+      - ./certs:/https:ro
 
 networks:
   default:
